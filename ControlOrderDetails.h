@@ -3,8 +3,11 @@ class ControlOrderDetails
 {
 private:
 	OrderDetails detail[100];
-	int size = 0;
+	
 public:
+
+	int size = 0;
+
 	ControlOrderDetails();
 
 	void add(OrderDetails a);

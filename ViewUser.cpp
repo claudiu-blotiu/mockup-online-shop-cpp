@@ -105,23 +105,27 @@ void ViewUser::viewShop()
 
 void ViewUser::viewCos()
 {
-
 	int contor = 0;
 
-	OrderDetails* produseDinCos = details.getProducts(order.getId(), contor);
 
-	for (int i = 0; i < contor; i++) {
+	for (int i= 1; i <= details.size; i++)
+	{
+		OrderDetails* produseDinCos = details.getProducts(i, contor);
 
-		Products p = products.getProduct1(produseDinCos[i].getproductId());
+		for (int i = 0; i < contor; i++) {
 
-		string desc = "";
+			Products p = products.getProduct1(produseDinCos[i].getproductId());
 
-		desc += "Produs " + p.getName()+"\n";
-		desc += "Pret total " + to_string(produseDinCos[i].getPrice())+"\n";
-		desc += "Cantiate " + to_string(produseDinCos[i].getQuantity())+"\n";
+			string desc = "";
 
-		cout << desc << endl;
+			desc += "Produs " + p.getName() + "\n";
+			desc += "Pret total " + to_string(produseDinCos[i].getPrice()) + "\n";
+			desc += "Cantiate " + to_string(produseDinCos[i].getQuantity()) + "\n";
+
+			cout << desc << endl;
+		}
 	}
+	
 }
 
 void ViewUser::remove()
@@ -135,15 +139,17 @@ void ViewUser::remove()
 	int ct = 0;
 
 	Products produse = products.getProduct(name);
-
-	OrderDetails* produseDetaliate = details.getProducts(order.getId(), ct);
-
-	for (int i = 0; i < ct; i++)
+	for (int i = 1; i <= details.size; i++)
 	{
-		if (produseDetaliate[i].getproductId() == produse.getId())
+		OrderDetails* produseDetaliate = details.getProducts(i, ct);
+
+		for (int i = 0; i < ct; i++)
 		{
-			details.Delete2(produseDetaliate[i].getId());
-			products.updateStock(produse.getName(), produse.getStock() + produseDetaliate[i].getQuantity());
+			if (produseDetaliate[i].getproductId() == produse.getId())
+			{
+				details.Delete2(produseDetaliate[i].getId());
+				//products.updateStock(produse.getName(), produse.getStock() + produseDetaliate[i].getQuantity());
+			}
 		}
 	}
 }

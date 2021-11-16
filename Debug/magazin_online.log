@@ -1,2 +1,10 @@
-﻿  ViewUser.cpp
-  magazin_online.vcxproj -> G:\c++\magazin_online\Debug\magazin_online.exe
+﻿  ControlCustomer.cpp
+  ControlOrder.cpp
+  ControlOrderDetails.cpp
+  Customer.cpp
+  ViewLogin.cpp
+  ViewUser.cpp
+  magazin_online.cpp
+  order.cpp
+  Generating Code...
+  magazin_online.vcxproj -> F:\c++\magazin_online\Debug\magazin_online.exe
