@@ -2,12 +2,12 @@
 class ControlOrder
 {
 private:
-	Order list[100];
+	Order** list;
 	int size = 0;
 public:
 	ControlOrder();
 
-	void add(Order a);
+	void add(Order* a);
 
 	void show();
 

@@ -3,15 +3,15 @@
 class ViewUser
 {
 private:
-	Customer customer;
-	ControlProducts products;
-	ControlOrderDetails details;
-	ControlOrder orders;
-	Order order;
+	Customer *customer;
+	ControlProducts* products;
+	ControlOrderDetails* details;
+	ControlOrder* orders;
+	Order *order;
 
 public:
 	
-	ViewUser(Customer c);
+	ViewUser(Customer* c);
 
 
 	string meniu();

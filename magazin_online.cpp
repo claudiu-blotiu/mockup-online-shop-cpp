@@ -1,52 +1,25 @@
-#include"ViewLogin.h"
+#include"ViewUser.h"
 
 int main()
 {
     
-    
-    /*Customer f(6,"Bogdan","meditatii","BogdanD","acasa","job","RO",98234);
+    //aici
 
-    ViewLogin view(f);
+    Customer* f = new Customer(6,"Bogdan","meditatii","BogdanD","acasa","job","RO",98234);
 
-    view.play();*/
+    ViewUser view(f);
 
-   /*ControlCustomer f;
-
-    Customer g=f.getUser("BogdanD", "meditatii");
-
-    cout << g.description();*/
-
-    
-    ViewLogin f;
-
-    f.play();
-
-    
-    
-  
-
-   
-    
-    
-   
-    
-    
-    
-    
-
-    
-  
-
-    
-
-    
-    
-
-    
-    
-    
-   
- 
+    view.play();
 
   
+    
+    
+
+    /*ControlProducts* cp = new ControlProducts();
+
+    Products* p = cp->getProduct1(2);
+
+    cout << p->description() << endl;*/
+
+    
 }

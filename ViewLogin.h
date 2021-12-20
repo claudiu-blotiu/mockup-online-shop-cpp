@@ -2,18 +2,16 @@
 
 class ViewLogin
 {
+private:
 
-	
-	ControlCustomer customers;
+	ControlCustomer* customers;
 	
 
 public:
 
-	ViewLogin()
-	{
-
-	}
-
+	ViewLogin();
+	
+	
 	string meniu();
 
 	void play();

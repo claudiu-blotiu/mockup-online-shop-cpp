@@ -18,8 +18,8 @@ public:
 	{
 
 	}
-	Products(int,string ,int ,int ,int );
 
+	Products(int,string ,int ,int ,int );
 
 	void setId(int);
 	int getId();
@@ -36,8 +36,8 @@ public:
 	void setStock(int);
 	int getStock();
 
-	string description();
+	virtual string description();
 
-	string toSave();
+	virtual string toSave();
 };
 

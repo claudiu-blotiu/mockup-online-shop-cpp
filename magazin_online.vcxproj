@@ -144,10 +144,13 @@
     <ClCompile Include="ControlOrderDetails.cpp" />
     <ClCompile Include="ControlProducts.cpp" />
     <ClCompile Include="Customer.cpp" />
+    <ClCompile Include="Electronics.cpp" />
+    <ClCompile Include="Food.cpp" />
     <ClCompile Include="magazin_online.cpp" />
     <ClCompile Include="order.cpp" />
     <ClCompile Include="OrderDetails.cpp" />
     <ClCompile Include="Products.cpp" />
+    <ClCompile Include="Toys.cpp" />
     <ClCompile Include="ViewLogin.cpp" />
     <ClCompile Include="ViewUser.cpp" />
   </ItemGroup>
@@ -157,9 +160,12 @@
     <ClInclude Include="ControlOrderDetails.h" />
     <ClInclude Include="ControlProducts.h" />
     <ClInclude Include="Customer.h" />
+    <ClInclude Include="Electronics.h" />
+    <ClInclude Include="Food.h" />
     <ClInclude Include="order.h" />
     <ClInclude Include="OrderDetails.h" />
     <ClInclude Include="Products.h" />
+    <ClInclude Include="Toys.h" />
     <ClInclude Include="ViewLogin.h" />
     <ClInclude Include="ViewUser.h" />
   </ItemGroup>

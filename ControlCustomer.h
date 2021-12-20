@@ -2,12 +2,12 @@
 class ControlCustomer
 {
 private:
-	Customer person[100];
+	Customer** person;
 	int size = 0;
 public:
 	ControlCustomer();
 
-	void add(Customer a);
+	void add(Customer* a);
 
 	void show();
 
@@ -31,9 +31,9 @@ public:
 
 	void updatePhone(string email, int newPhone);
 
-	Customer getCustomer(string name);
+	Customer* getCustomer(string name);
 
-	Customer getUser(string name, string parola);
+	Customer* getUser(string name, string parola);
 
 	void load();
 

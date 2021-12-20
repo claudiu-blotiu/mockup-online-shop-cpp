@@ -2,10 +2,12 @@
 
 ControlOrder::ControlOrder()
 {
+	list = new Order*[100];
+
 	load();
 }
 
-void ControlOrder::add(Order a)
+void ControlOrder::add(Order* a)
 {
 	list[size] = a;
 	size++;
@@ -15,7 +17,7 @@ void ControlOrder::show()
 {
 	for (int i = 0; i < size; i++)
 	{
-		cout << list[i].description();
+		cout << list[i]->description();
 		cout << endl;
 	}
 }
@@ -24,7 +26,7 @@ int ControlOrder::poz(int customerId)
 {
 	for (int i = 0; i < size; i++)
 	{
-		if (list[i].getcustomerId() == customerId)
+		if (list[i]->getcustomerId() == customerId)
 		{
 			return i;
 		}
@@ -49,7 +51,7 @@ int ControlOrder::nextId()
 		return 1;
 	}
 
-	return list[size - 1].getId() + 1;
+	return list[size - 1]->getId() + 1;
 }
 
 void ControlOrder::updatecustomerId(int customerId, int newCustomerId)
@@ -57,7 +59,7 @@ void ControlOrder::updatecustomerId(int customerId, int newCustomerId)
 	int p = poz(customerId);
 	if(p != -1)
 	{
-		list[p].setcumstomerID(newCustomerId);
+		list[p]->setcumstomerID(newCustomerId);
 	}
 	else
 	{
@@ -70,7 +72,7 @@ void ControlOrder::updateAmmount(int customerId, int newAmmount)
 	int p = poz(customerId);
 	if (p != -1)
 	{
-		list[p].setammount(newAmmount);
+		list[p]->setammount(newAmmount);
 	}
 	else {
 		cout << "Ammount not found"<<endl;
@@ -82,7 +84,7 @@ void ControlOrder::updateShippingAdress(int customerId, string newShippingAdress
 	int p = poz(customerId);
 	if (p != -1)
 	{
-		list[p].setshippingAdress(newShippingAdress);
+		list[p]->setshippingAdress(newShippingAdress);
 	}
 	else {
 		cout << "Shipping adress not found"<<endl;
@@ -94,7 +96,7 @@ void ControlOrder::updateOrderAdress(int customerId, string newOrderAdress)
 	int p = poz(customerId);
 	if (p != -1)
 	{
-		list[p].setorderAdress(newOrderAdress);
+		list[p]->setorderAdress(newOrderAdress);
 	}
 	else {
 		cout << "Wrong Order adress."<<endl;
@@ -106,7 +108,7 @@ void ControlOrder::updateOrderEmail(int customerId, string newOrderEmail)
 	int p = poz(customerId);
 	if (p != -1)
 	{
-		list[p].setorderEmail(newOrderEmail);
+		list[p]->setorderEmail(newOrderEmail);
 	}
 	else {
 		cout << "Wrong Order Email" << endl;
@@ -118,7 +120,7 @@ void ControlOrder::updateOrderDate(int customerId, int newOrderDate)
 	int p = poz(customerId);
 	if (p != -1)
 	{
-		list[p].setorderDate(newOrderDate);
+		list[p]->setorderDate(newOrderDate);
 	}
 	else
 	{
@@ -131,7 +133,7 @@ void ControlOrder::updateOrderStatus(int customerId, bool newOrderStatus)
 	int p = poz(customerId);
 	if (p != -1)
 	{
-		list[p].setorderStatus(newOrderStatus);
+		list[p]->setorderStatus(newOrderStatus);
 	}
 	else
 	{
@@ -147,9 +149,9 @@ Order* ControlOrder::getHistory(int customerId, int& nr)
 
 	for (int i = 0; i < size; i++) {
 
-		if (list[i].getcustomerId() == customerId) {
+		if (list[i]->getcustomerId() == customerId) {
 
-			orders[nr] = list[i];
+			orders[nr] = *list[i];
 
 			nr++;
 		}
@@ -183,7 +185,7 @@ void ControlOrder::load()
 
 		if (id > 0)
 		{
-			Order g(id, customerId, ammount, shippingAdress, orderAdress, orderEmail, orderDate, orderStatus);
+			Order* g=new Order(id, customerId, ammount, shippingAdress, orderAdress, orderEmail, orderDate, orderStatus);
 
 			this->add(g);
 		}
@@ -196,10 +198,10 @@ string ControlOrder::toSave()
 	int i = 0;
 	for ( i = 0; i < size-1; i++)
 	{
-		text += list[i].toSave() + "\n";
+		text += list[i]->toSave() + "\n";
 	}
 
-	text += list[i].toSave();
+	text += list[i]->toSave();
 	return text;
 }
 

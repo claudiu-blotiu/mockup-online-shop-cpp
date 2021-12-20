@@ -1,14 +1,17 @@
-#include"Products.h"
+#include"Electronics.h"
 
 class ControlProducts
 {
 private:
-	Products product[100];
-	int size = 0;
+	Products** product;
+	
 public:
+
+	int size = 0;
+
 	ControlProducts();
 
-	void add(Products a);
+	void add(Products* a);
 
 	void show();
 
@@ -26,9 +29,9 @@ public:
 
 	void updateStock(string name, int newStock);
 
-	Products getProduct(string name);
+	Products* getProduct(string name);
 
-	Products getProduct1(int productId);
+	Products* getProduct1(int productId);
 
 	void load();
 

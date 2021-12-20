@@ -52,13 +52,20 @@ void ViewUser::play()
 	}
 }
 
-ViewUser::ViewUser(Customer c)
+ViewUser::ViewUser(Customer* c)
 {
 	this->customer = c;
-	
-	Order o(orders.nextId(), c.getId(), 0, c.getShippingAdress(), c.getBillingadress(), c.getEmail(),1, false);
 
-	order = o;
+	products = new ControlProducts();
+
+	details = new ControlOrderDetails();
+
+	orders = new ControlOrder();
+
+	order = new Order(orders->nextId(), c->getId(),0, c->getShippingAdress(), c->getBillingadress(), c->getEmail(), 1, false);
+
+	
+	
 
 }
 
@@ -70,9 +77,9 @@ void ViewUser::add()
 
 	cin >> name;
 
-	Products choise = products.getProduct(name);
+	Products* choise = products->getProduct(name);
 
-	if (choise.getName() == name)
+	if (choise->getName() == name)
 	{
 		cout << "Introduceti cantitatea dorita" << endl;
 
@@ -83,11 +90,11 @@ void ViewUser::add()
 
 		//verificam daca cantitatea exista 
 
-		if (choise.getStock()>cantitate)
+		if (choise->getStock()>cantitate)
 		{
-			OrderDetails detalii(details.nextId(), order.getId(), choise.getId(), choise.getPrice() * cantitate, cantitate);
-			details.add(detalii);
-			products.updateStock(choise.getName(), choise.getStock() - cantitate);
+			OrderDetails* detalii=new OrderDetails(details->nextId(), order->getId(), choise->getId(), choise->getPrice() * cantitate, cantitate);
+			details->add(detalii);
+			products->updateStock(choise->getName(), choise->getStock() - cantitate);
 
 		}
 		else {
@@ -99,33 +106,33 @@ void ViewUser::add()
 void ViewUser::viewShop()
 {
 	
-	products.show();
+	products->show();
 
 }
 
 void ViewUser::viewCos()
 {
+
 	int contor = 0;
-
-
-	for (int i= 1; i <= details.size; i++)
+	
+	for (int i = 1; i <= details->size; i++)
 	{
-		OrderDetails* produseDinCos = details.getProducts(i, contor);
+		OrderDetails* produseDinCos = details->getProducts(i, contor);
 
 		for (int i = 0; i < contor; i++) {
 
-			Products p = products.getProduct1(produseDinCos[i].getproductId());
+			Products* p = products->getProduct1(produseDinCos[i].getproductId());
 
 			string desc = "";
 
-			desc += "Produs " + p.getName() + "\n";
+			desc += "Produs " + p->getName() + "\n";
 			desc += "Pret total " + to_string(produseDinCos[i].getPrice()) + "\n";
 			desc += "Cantiate " + to_string(produseDinCos[i].getQuantity()) + "\n";
 
 			cout << desc << endl;
+
 		}
 	}
-	
 }
 
 void ViewUser::remove()
@@ -138,17 +145,18 @@ void ViewUser::remove()
 
 	int ct = 0;
 
-	Products produse = products.getProduct(name);
-	for (int i = 1; i <= details.size; i++)
+	Products* produse = products->getProduct(name);
+
+	for (int i = 1; i <= details->size; i++)
 	{
-		OrderDetails* produseDetaliate = details.getProducts(i, ct);
+		OrderDetails* produseDetaliate = details->getProducts(i, ct);
 
 		for (int i = 0; i < ct; i++)
 		{
-			if (produseDetaliate[i].getproductId() == produse.getId())
+			if (produseDetaliate[i].getproductId() == produse->getId())
 			{
-				details.Delete2(produseDetaliate[i].getId());
-				//products.updateStock(produse.getName(), produse.getStock() + produseDetaliate[i].getQuantity());
+				details->Delete2(produseDetaliate[i].getId());
+				//products->updateStock(produse->getName(), produse->getStock() + produseDetaliate[i].getQuantity());
 			}
 		}
 	}
@@ -156,13 +164,14 @@ void ViewUser::remove()
 
 void ViewUser::buy()
 {
-	orders.add(order);
+	
+	orders->add(order);
 
-	orders.save();
+	orders->save();
 
-	details.save();
+	details->save();
 
-	products.save();
+	products->save();
 
 }
 
@@ -170,7 +179,7 @@ void ViewUser::history()
 {
 	int ct = 0;
 
-	Order* istoric = orders.getHistory(customer.getId(), ct);
+	Order* istoric = orders->getHistory(customer->getId(), ct);
 
 	for (int i = 0; i < ct; i++)
 	{

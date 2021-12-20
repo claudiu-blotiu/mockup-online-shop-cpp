@@ -2,15 +2,14 @@
 class ControlOrderDetails
 {
 private:
-	OrderDetails detail[100];
+	OrderDetails** detail;
 	
 public:
-
 	int size = 0;
 
 	ControlOrderDetails();
 
-	void add(OrderDetails a);
+	void add(OrderDetails* a);
 
 	void show();
 
@@ -32,7 +31,7 @@ public:
 
 	void updateQuantity(int orderId, int newQuantity);
 
-	OrderDetails get(string name, int orderId);
+	OrderDetails* get(string name, int orderId);
 
 	OrderDetails* getProducts(int orderId, int& number);
 

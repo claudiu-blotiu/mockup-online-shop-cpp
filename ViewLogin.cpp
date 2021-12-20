@@ -39,6 +39,11 @@ void ViewLogin::play()
 	}
 }
 
+ViewLogin::ViewLogin()
+{
+	this->customers = new ControlCustomer();
+}
+
 void ViewLogin::login()
 {
 	string user = "";
@@ -53,12 +58,15 @@ void ViewLogin::login()
 
 	cin >> parola;
 
-	Customer c = customers.getUser(user, parola);
+	
+	Customer* c = customers->getUser(user, parola);
 
-	if (c.getFullname() == user)
+	if (c->getFullname() == user)
 	{
-		ViewUser view(c);
-		view.play();
+
+		ViewUser* view = new ViewUser(c);
+		
+		view->play();
 	}
 	else
 	{
@@ -97,22 +105,9 @@ void ViewLogin::inregistrare()
 	cin >> telefon;
 
 	
-	Customer a(customers.nextId(), email, parola, user, facturare, livrare, tara, telefon);
-	customers.add(a);
+	Customer* a=new Customer(customers->nextId(), email, parola, user, facturare, livrare, tara, telefon);
+	customers->add(a);
 	
-	customers.save();
+	customers->save();
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 

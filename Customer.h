@@ -1,4 +1,3 @@
-#pragma once
 #include "ControlOrder.h"
 class Customer
 {

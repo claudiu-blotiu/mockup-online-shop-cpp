@@ -2,10 +2,12 @@
 
 ControlProducts::ControlProducts()
 {
+	product = new Products * [100];
+
 	load();
 }
 
-void ControlProducts::add(Products a)
+void ControlProducts::add(Products* a)
 {
 	product[size] = a;
 	size++;
@@ -15,7 +17,7 @@ void ControlProducts::show()
 {
 	for (int i = 0; i < size; i++)
 	{
-		cout << product[i].description();
+		cout << product[i]->description();
 		cout << endl;
 	}
 }
@@ -24,7 +26,7 @@ int ControlProducts::poz(string name)
 {
 	for (int i = 0; i < size; i++)
 	{
-		if (product[i].getName() == name)
+		if (product[i]->getName() == name)
 		{
 			return i;
 		}
@@ -48,7 +50,7 @@ int ControlProducts::nextId() {
 		return 1;
 	}
 
-	return product[size - 1].getId() + 1;
+	return product[size - 1]->getId() + 1;
 }
 
 void ControlProducts::updateName(string name, string newName)
@@ -56,7 +58,7 @@ void ControlProducts::updateName(string name, string newName)
 	int p = poz(name);
 	if (p != -1)
 	{
-		product[p].setName(newName);
+		product[p]->setName(newName);
 	}
 	else {
 		cout << "Name not found" << endl;
@@ -68,7 +70,7 @@ void ControlProducts::updateWeight(string name, int newWeight)
 	int p = poz(name);
 	if (p != -1)
 	{
-		product[p].setWeight(newWeight);
+		product[p]->setWeight(newWeight);
 	}
 	else
 	{
@@ -81,7 +83,7 @@ void ControlProducts::updatePrice(string name, int newPrice)
 	int p = poz(name);
 	if (p != -1)
 	{
-		product[p].setPrice(newPrice);
+		product[p]->setPrice(newPrice);
 	}
 	else
 	{
@@ -94,7 +96,7 @@ void ControlProducts::updateStock(string name, int newStock)
 	int p = poz(name);
 	if (p != -1)
 	{
-		product[p].setStock(newStock);
+		product[p]->setStock(newStock);
 	}
 	else
 	{
@@ -102,7 +104,7 @@ void ControlProducts::updateStock(string name, int newStock)
 	}
 }
 
-Products ControlProducts::getProduct(string name)
+Products* ControlProducts::getProduct(string name)
 {
 	
 	int pozitie = poz(name);
@@ -111,11 +113,11 @@ Products ControlProducts::getProduct(string name)
 
 }
 
-Products ControlProducts::getProduct1(int productID)
+Products* ControlProducts::getProduct1(int productID)
 {
 	for (int i = 0; i < size; i++)
 	{
-		if (product[i].getId() == productID)
+		if (product[i]->getId() == productID)
 		{
 			return product[i];
 		}
@@ -128,21 +130,47 @@ void ControlProducts::load()
 
 	while (!read.eof())
 	{
-		int id;
-		read >> id;
 		string name;
 		read >> name;
-		int weight;
-		read >> weight;
-		int price;
-		read >> price;
-		int stock;
-		read >> stock;
 
 		if (name != "")
 		{
-			Products p(id,name, weight, price, stock);
-			this->add(p);
+			int id;
+			read >> id;
+			int weight;
+			read >> weight;
+			int price;
+			read >> price;
+			int stock;
+			read >> stock;
+
+			if (name == "Food")
+			{
+				string type;
+				read >> type;
+
+				Products* a = new Food(type, id, weight, price, stock);
+
+				this->add(a);
+			}
+			if (name == "Toys")
+			{
+				int minimAge;
+				read >> minimAge;
+
+				Products* b = new Toys(minimAge, id, weight, price, stock);
+
+				this->add(b);
+			}
+			if (name == "Electronics")
+			{
+				string marca;
+				read >> marca;
+
+				Products* c = new Electronics(marca, id, weight, price, stock);
+
+				this->add(c);
+			}
 		}
 	}
 }
@@ -153,9 +181,9 @@ string ControlProducts::toSave()
 	int i = 0;
 	for (i = 0; i < size-1; i++)
 	{
-		text += product[i].toSave() + "\n";
+		text += product[i]->toSave() + "\n";
 	}
-	text += product[i].toSave();
+	text += product[i]->toSave();
 	return text;
 }
 
